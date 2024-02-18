@@ -1,9 +1,11 @@
 package com.aditys.themusicalchemy
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
@@ -12,8 +14,9 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class MainActivity : AppCompatActivity() {
+class MainActivity :  AppCompatActivity(), ItemClickListener {
 
+    private lateinit var dataList: List<Data>
     lateinit var myrecyclerview:RecyclerView
     lateinit var myAdapter: MyAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,6 +24,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         myrecyclerview= findViewById(R.id.recyclerView)
+
+        val recyclerView:RecyclerView = findViewById(R.id.recyclerView)
+        val adapter = MyAdapter(this, dataList ,this)
+        recyclerView.adapter=adapter
 
         val retrofitBuilder= Retrofit.Builder()
             .baseUrl("https://deezerdevs-deezer.p.rapidapi.com/")
@@ -47,5 +54,10 @@ class MainActivity : AppCompatActivity() {
                Log.d("TAG: onFailure", "onFailure: " + t.message)
             }
         })
+    }
+
+    override fun onItemClick(position: Int) {
+        // Handle item click, e.g., navigate to another activity
+        Toast.makeText(this, "Item clicked at position: $dataList", Toast.LENGTH_SHORT).show()
     }
 }
