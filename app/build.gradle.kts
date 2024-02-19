@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId = "com.aditys.themusicalchemy"
         minSdk = 26
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -47,13 +47,11 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-    //Retrofit dependency
+
+    //All the dependencies are as follows
+
+    implementation ("com.google.code.gson:gson:2.8.7")
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-
-    //GSON Converter
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
-
-    //picasso Library
-//    implementation ("com.squareup.picasso:picasso:2.8")
-    implementation("com.squareup.picasso:picasso:2.8")
+    implementation("com.squareup.picasso:picasso:2.71828")
 }

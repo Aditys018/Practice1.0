@@ -1,11 +1,8 @@
 package com.aditys.themusicalchemy
 
-import android.app.Activity
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
@@ -14,9 +11,9 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class MainActivity :  AppCompatActivity(), ItemClickListener {
 
-    private lateinit var dataList: List<Data>
+class MainActivity : AppCompatActivity() {
+
     lateinit var myrecyclerview:RecyclerView
     lateinit var myAdapter: MyAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,10 +21,6 @@ class MainActivity :  AppCompatActivity(), ItemClickListener {
         setContentView(R.layout.activity_main)
 
         myrecyclerview= findViewById(R.id.recyclerView)
-
-        val recyclerView:RecyclerView = findViewById(R.id.recyclerView)
-        val adapter = MyAdapter(this, dataList ,this)
-        recyclerView.adapter=adapter
 
         val retrofitBuilder= Retrofit.Builder()
             .baseUrl("https://deezerdevs-deezer.p.rapidapi.com/")
@@ -41,8 +34,7 @@ class MainActivity :  AppCompatActivity(), ItemClickListener {
 
             override fun onResponse(call: Call<MyData?>, response: Response<MyData?>) {
                 val dataList=response.body()?.data!!
-//                val textView= findViewById<TextView>(R.id.helloText)
-//                textView.text= dataList.toString()
+                Log.d("ResponseData :" ,"Data"+dataList.toString());
 
                 myAdapter= MyAdapter(this@MainActivity, dataList)
                 myrecyclerview.adapter=myAdapter
@@ -51,13 +43,8 @@ class MainActivity :  AppCompatActivity(), ItemClickListener {
             }
 
             override fun onFailure(call: Call<MyData?>, t: Throwable) {
-               Log.d("TAG: onFailure", "onFailure: " + t.message)
+                Log.d("TAG: onFailure", "onFailure: " + t.message)
             }
         })
-    }
-
-    override fun onItemClick(position: Int) {
-        // Handle item click, e.g., navigate to another activity
-        Toast.makeText(this, "Item clicked at position: $dataList", Toast.LENGTH_SHORT).show()
     }
 }

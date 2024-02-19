@@ -12,16 +12,13 @@ import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
-interface ItemClickListener {
-    fun onItemClick(position: Int)
-}
 
-class MyAdapter(val context: Activity, val dataList: List<Data>, val itemClickListener: ItemClickListener) :
+
+class MyAdapter(val context:Activity, val dataList: List<Data>):
     RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val itemView = LayoutInflater.from(context).inflate(R.layout.each_item, parent, false)
-        return MyViewHolder(itemView)
+        val itemView= LayoutInflater.from(context).inflate(R.layout.each_item, parent, false);return MyViewHolder(itemView)
     }
 
     override fun getItemCount(): Int {
@@ -29,30 +26,38 @@ class MyAdapter(val context: Activity, val dataList: List<Data>, val itemClickLi
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val currentData = dataList[position]
+        //populate the data into the view
+        val currentData= dataList[position]
 
-        val mediaPlayer = MediaPlayer.create(context, currentData.preview.toUri())
-        holder.title.text = currentData.title
+        val mediaPlayer= MediaPlayer.create(context, currentData.preview.toUri())
+        holder.title.text= currentData.title
+
 
         Picasso.get().load(currentData.album.cover).into(holder.image);
 
-        holder.play.setOnClickListener {
+        holder.play.setOnClickListener{
             mediaPlayer.start()
         }
-        holder.pause.setOnClickListener {
+        holder.pause.setOnClickListener{
             mediaPlayer.stop()
         }
 
-        // Set click listener for item view
-        holder.itemView.setOnClickListener {
-            itemClickListener.onItemClick(position)
+
+    }
+
+    class MyViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
+        val image: ImageView
+        val title: TextView
+        val play: ImageButton
+        val pause: ImageButton
+
+        init{
+            image= itemView.findViewById(R.id.musicImage)
+            title= itemView.findViewById(R.id.musicTitle)
+            play= itemView.findViewById(R.id.btnPlay)
+            pause= itemView.findViewById(R.id.btnPause)
         }
     }
 
-    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val image: ImageView = itemView.findViewById(R.id.musicImage)
-        val title: TextView = itemView.findViewById(R.id.musicTitle)
-        val play: ImageButton = itemView.findViewById(R.id.btnPlay)
-        val pause: ImageButton = itemView.findViewById(R.id.btnPause)
-    }
+
 }
