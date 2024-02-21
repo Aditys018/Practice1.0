@@ -11,6 +11,6 @@
         android:pathData="M147.31,0.31m-147.31,0a147.31,147.31 0,1 1,294.61 0a147.31,147.31 0,1 1,-294.61 0"/>
     <path
         android:pathData="M-31.82,-212.99h358.25v447.81h-358.25z"
-        android:fillColor="url(#pattern0)"/>
+        />
   </group>
 </vector>

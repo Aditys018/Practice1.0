@@ -58,7 +58,7 @@
     <clip-path
         android:pathData="M188.52,-1.52m-147.31,0a147.31,147.31 0,1 1,294.61 0a147.31,147.31 0,1 1,-294.61 0"/>
     <path
-        android:pathData="M9.4,-214.82h358.25v447.81h-358.25z"
-        android:fillColor="url(#pattern0)"/>
+        android:pathData="M9.4,-214.82h358.25v447.81h-358.25z" />
+
   </group>
 </vector>
